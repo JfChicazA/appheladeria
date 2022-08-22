@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Aldi Duzha" />
+    <meta name="description" content="Free Bulma Login Template, part of Awesome Bulma Templates" />
+    <meta name="keywords" content="bulma, login, page, website, template, free, awesome" />
+    <link rel="canonical" href="https://aldi.github.io/bulma-login-template/" />
+    <title>La huella</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" />
+    <link  type='text/css' href="{% static 'login.css' %}"  rel='stylesheet' >
+
+
+  </head>
+  <body>
+    <section class="hero is-fullheight">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="column is-4 is-offset-4">
+            <div class="box">
+              <p class="subtitle is-4">La huella 🍨 </p>
+              <br />
+              <form method="post">{% csrf_token %}
+
+
+                  <p class="control has-icons-left has-icons-right">
+                    <input class="input is-medium" name="username" type="text"  placeholder="Email" />
+                    <span class="icon is-medium is-left">
+                      <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-medium is-right">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </p>
+
+                  <div class="field">
+                   
+
+                </div>
+                <div class="field">
+                  <p class="control has-icons-left">
+                    <input class="input is-medium" type="password" name="password" placeholder="Password" />
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                <div class="field">
+                  <label class="checkbox">
+                    <input type="checkbox" />
+                    Recuerdame
+                  </label>
+                </div>
+                <button class="button is-block is-info is-large is-fullwidth">Login</button><br />
+                <p class="subtitle is-5">Grupo 1:</p>
+        
+                <div class="buttons is-centered" style="margin-bottom: 0;">
+                  
+                  <a class="button is-medium is-github" href="https://github.com/JfChicazA/appheladeria.git">
+                    <span class="icon">
+                      <i class="fab fa-github fa-lg"></i>
+                    </span>
+                  </a>
+                </div>
+              </form>
+            </div>
+            <p class="has-text-grey">
+              <a href="http://127.0.0.1:8000/usuarios/registro" >Registrarme </a > &nbsp;·&nbsp; <a href="http://127.0.0.1:8000/password_reset">Olvide Contraseña</a> &nbsp;·&nbsp;
+              
+            </p>
+        
+          </div>
+        </div>
+      </div>
+      <div class="hero-foot">
+        <div class="container has-text-centered">
+          <p class="footer-text">
+          </p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
