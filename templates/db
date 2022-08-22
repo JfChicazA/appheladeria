@@ -1,0 +1,140 @@
+
+DELIMITER //
+CREATE PROCEDURE CURSOR_TOTALVENTA ()
+BEGIN
+DECLARE N_ISBN VARCHAR(20);
+DECLARE N_TITULO VARCHAR(20);
+DECLARE N_AREA VARCHAR(20);
+DECLARE N_MAYO INT;
+DECLARE N_JUNIO INT;
+DECLARE N_JULIO INT;
+DECLARE Limite BOOLEAN DEFAULT FALSE;
+DECLARE libro cursor for
+SELECT ISBN, Titulo, area
+FROM libro;
+DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET Limite= TRUE;
+OPEN Libro;
+TOTALVENT: LOOP
+FETCH libro INTO N_ISBN, N_TITULO, N_AREA;
+IF Limite THEN
+LEAVE TOTALVENT;
+END IF;
+SELECT COUNT(de.Venta) AS TOTAL_VENTA
+INTO N_MAYO
+FROM libro INNER JOIN detalle_venta de ON libro.ISBN=de.Libro INNER JOIN venta on 
+de.Venta = venta.IdVenta
+WHERE libro.ISBN = N_ISBN
+AND venta.fecha BETWEEN "2022-05-01" and "2022-05-30";
+SELECT COUNT(de.VENTA) AS TOTAL_VENTA
+INTO N_JUNIO
+FROM libro INNER JOIN detalle_venta de ON libro.ISBN=de.Libro INNER JOIN venta on 
+de.Venta = venta.IdVenta
+WHERE libro.ISBN = N_ISBN
+AND venta.fecha BETWEEN "2022-06-01" and "2022-06-30";
+SELECT COUNT(de.VENTA)AS TOTAL_VENTA
+INTO N_JULIO
+FROM libro INNER JOIN detalle_venta de ON libro.ISBN=de.Libro INNER JOIN venta on 
+de.Venta = venta.IdVenta
+WHERE libro.ISBN = N_ISBN
+AND venta.fecha BETWEEN "2022-07-01" and "2022-07-30";
+
+END LOOP TOTALVENT;
+CLOSE libro;
+END //
+DELIMITER ;
+CALL CURSOR_TOTALVENTA();
+
+
+
+ DELIMITER //
+ CREATE PROCEDURE CURSOR_TOTALVENTA ()
+   BEGIN
+   DECLARE N_ISBN VARCHAR(20);
+   DECLARE N_TITULO VARCHAR(20);
+   DECLARE N_AREA VARCHAR(20);
+   DECLARE N_MAYO INT;
+   DECLARE N_JUNIO INT;
+   DECLARE N_JULIO INT;
+   DECLARE Limite BOOLEAN DEFAULT FALSE;
+   DECLARE libro cursor for
+   SELECT ISBN, Titulo, area
+   FROM libro;
+   DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET Limite= TRUE;
+   OPEN Libro;
+   TOTALVENT: LOOP
+   FETCH libro INTO N_ISBN, N_TITULO, N_AREA;
+   IF Limite THEN
+   LEAVE TOTALVENT;
+   END IF;
+   SELECT COUNT(de.Venta) AS TOTAL_VENTA
+   INTO N_MAYO
+   FROM libro INNER JOIN detalle_venta de ON libro.ISBN = de.Libro INNER JOIN venta on
+   de.Venta = venta.IdVenta
+   WHERE libro.ISBN = N_ISBN
+   AND venta.fecha BETWEEN "2022-05-01" and "2022-05-30";
+   SELECT COUNT(de.VENTA) AS TOTAL_VENTA
+   INTO N_JUNIO
+   FROM libro INNER JOIN detalle_venta de ON libro.ISBN = de.Libro INNER JOIN venta on
+   de.Venta = venta.IdVenta
+   AND venta.fecha BETWEEN "2022-06-01" and "2022-06-30";
+   SELECT COUNT(de.VENTA)AS TOTAL_VENTA
+   INTO N_JULIO
+   FROM libro INNER JOIN detalle_venta de  ON libro.ISBN = de.Libro INNER JOIN venta on
+   de.Venta = venta.IdVenta
+   AND venta.fecha BETWEEN "2022-07-01" and "2022-07-30";
+   SELECT N_ISBN, N_TITULO, N_AREA, N_MAYO, N_JUNIO, N_JULIO;
+   END LOOP TOTALVENT;
+   CLOSE libro;
+   END //
+   DELIMITER ;
+   CALL CURSOR_TOTALVENTA();
+
+
+
+
+
+
+DELIMITER //
+CREATE TRIGGER COMPROVACION
+BEFORE INSERT 
+ON DETALLE_VENTA 
+FOR EACH ROW
+BEGIN
+DECLARE STOCK_id INT;
+SELECT Lib.STOCK INTO STOCK_id
+FROM LIBRO Lib
+WHERE ISBN = NEW.LIBRO;
+IF NEW.CANTIDAD > STOCK_id THEN
+SET NEW.CANTIDAD = STOCK_id;
+END IF;
+UPDATE LIBRO
+SET STOCK = STOCK - NEW.CANTIDAD
+WHERE ISBN = NEW.LIBRO;
+END //
+DELIMITER ;
+
+INSERT INTO DETALLE_VENTA (Venta , Libro,PVP , cantidad) VALUES (8,2,55, 30);
+
+
+
+insert into autor (Codigo,Nombres,Nacionalidad,f_nacim,sexo)
+            values(129,"Edward William","Ecuatoriano","1994/07/07","M"),
+                  (131,"Jorge Armando","Colombiano","1983/03/22","M"),
+                  (132,"Luis Eduardo","Ecuatoriana","1995/09/14","M"),
+                  (133,"Victor Cruz","Ecuatoriana","1953/12/13","M"),
+                  (134,"Amanda Yvon","Venezuela","1974/06/18","F"),
+                  (135,"Mario","Mexicana","1974/12/30","M"),
+                  (136,"Heinz","Mexicana","1972/10/12","F"),
+                  (137,"Miguel Angel","peruano","1976/10/10","M"),
+                  (138,"Esquivel Medrano"," Colombiana","1980/02/20","F"),
+                  (139,"Luis Eduardo","Ecuatoriana","1979/09/08","M"),
+                  (140,"Bruno Roberto","Mexicana","1989/09/03","M"), 
+                  (141,"Gilda","Ecuatoriana","1979/09/08","F") ,
+                  (142,"Alejandro","Colombiano","1999/02/15","M") ,
+                  (143,"Abel Arturo","Domenicano","2002/04/22","M") ,
+                  (144,"Gabino","Ecuatoriana","1994/10/01","M") ,
+                  (145,"Alvaro","Colombiano","2002/12/24","M") ,
+                  (146,"Carlos Antonio","Peruana","1980/07/21","M"),
+                  (147,"Mario","Domenicana","1985/04/12","M"),
+                  (148,"David","Venezolano","1985/10/08","M"),
+                  (149,"Pablo","Russa","2000/12/01","M");

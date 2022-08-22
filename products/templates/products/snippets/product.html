@@ -1,0 +1,32 @@
+{% load static %}
+
+          <!-- Producto en tarjetas-->
+          <div class="card text-center h-100">
+            {% if product.image %}
+            <img class="card-img-top" src="{{ product.image.url}}" alt="Card image cap" style=" height: 150px; object-fit: cover;">
+            {% else %}
+            <img class="card-img-top" src="{% static 'images/aimagenot.png' %}" alt="Card image cap" style=" height: 150px; object-fit: cover;">
+
+            {% endif %}
+            <div class="card-body">
+              <h4 class="card-title">{{product.title}}</h4>
+              <p class="card-text"> {{product.description }}</p>
+              
+            </div>
+            <div class="card-footer"> 
+
+            <div class="btn-group">
+                <a href="{% url 'products:product' product.slug %}" class="btn btn-outline-success btn-sm"> 
+                  🍨 ver
+                      </a> 
+
+                            <a href="{% url 'products:product' product.slug %}" class="btn btn-outline-warning btn-sm "
+                       > 
+                     🛒Agregar
+            </a> 
+            </div>
+                  
+
+
+            </div> 
+          </div>
