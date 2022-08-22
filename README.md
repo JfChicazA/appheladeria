@@ -9,3 +9,5 @@ Vera Suárez César Fabián
 Mero MurilloGema Julexy .
 
 Loor Cevallos Martha Nathaly.
+
+Catagua Intriago Luis Andres
